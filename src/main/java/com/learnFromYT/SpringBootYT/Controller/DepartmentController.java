@@ -1,6 +1,7 @@
 package com.learnFromYT.SpringBootYT.Controller;
 
 import com.learnFromYT.SpringBootYT.entity.Department;
+import com.learnFromYT.SpringBootYT.error.DepartmentNotFoundException;
 import com.learnFromYT.SpringBootYT.service.DepartmentService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -29,7 +30,8 @@ public class DepartmentController {
     }
 
     @GetMapping("/department/{id}")
-    public Department getSingleDepartment(@PathVariable("id") long id){
+    public Department getSingleDepartment(@PathVariable("id") long id) throws DepartmentNotFoundException{
+
         return departmentService.getDepartment(id);
     }
 

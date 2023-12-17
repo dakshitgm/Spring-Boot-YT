@@ -1,6 +1,7 @@
 package com.learnFromYT.SpringBootYT.service;
 
 import com.learnFromYT.SpringBootYT.entity.Department;
+import com.learnFromYT.SpringBootYT.error.DepartmentNotFoundException;
 import com.learnFromYT.SpringBootYT.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,13 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public Department getDepartment(long id){
-        return departmentRepository.findById(id).get();
+    public Department getDepartment(long id) throws DepartmentNotFoundException {
+
+        Optional<Department> department =  departmentRepository.findById(id);
+
+        if(!department.isPresent()) throw new DepartmentNotFoundException("Department Not available");
+
+        return department.get();
     }
 
     @Override
